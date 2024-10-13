@@ -23,6 +23,9 @@ set -ex
 export DEBIAN_FRONTEND=noninteractive
 
 apt-get update
+apt update
+apt install software-properties-common -y
+apt update
 add-apt-repository ppa:deadsnakes/ppa
 
 sed -e '/^\s*#.*$/d' -e '/^\s*$/d' "$1" | sort -u;
