@@ -24,8 +24,8 @@ RUN /setup.sources.sh
 RUN /setup.packages.sh /cpu.packages.txt
 
 
-ARG PYTHON_VERSION=python3.11
-ARG TENSORFLOW_PACKAGE=tf-nightly
+ARG PYTHON_VERSION=python3.12
+ARG TENSORFLOW_PACKAGE=tensorflow
 COPY setup.python.sh /setup.python.sh
 COPY cpu.requirements.txt /cpu.requirements.txt
 RUN /setup.python.sh $PYTHON_VERSION /cpu.requirements.txt
@@ -60,7 +60,8 @@ RUN curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64
     conda clean --all --yes && \
     conda clean --force-pkgs-dirs -y
 
-RUN conda install -c conda-forge xeus-cling matplotlib -y
+RUN conda install -c conda-forge xeus-cling matplotlib -y;
+# RUN conda install tensorflow -y;
 
 WORKDIR /tf
 EXPOSE 8888

@@ -16,4 +16,5 @@
 # ============================================================================
 
 set -euxo pipefail
+python --version
 python -c 'import tensorflow as tf'
