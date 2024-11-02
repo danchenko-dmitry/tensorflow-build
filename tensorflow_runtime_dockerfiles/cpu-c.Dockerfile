@@ -41,7 +41,10 @@ FROM base as jupyter
 
 COPY jupyter.requirements.txt /jupyter.requirements.txt
 COPY setup.jupyter.sh /setup.jupyter.sh
+
+RUN apt-get install git -y
 RUN python3 -m pip install --no-cache-dir -r /jupyter.requirements.txt -U
+RUN python3 -m pip install git+https://github.com/tensorflow/docs
 RUN /setup.jupyter.sh
 COPY jupyter.readme.md /tf/tensorflow-tutorials/README.md
 
