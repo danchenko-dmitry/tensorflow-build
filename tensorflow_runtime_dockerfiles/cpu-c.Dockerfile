@@ -20,6 +20,10 @@ ENV LANG C.UTF-8
 COPY setup.sources.sh /setup.sources.sh
 COPY setup.packages.sh /setup.packages.sh
 COPY cpu.packages.txt /cpu.packages.txt
+
+RUN apt-get update && apt-get install -y libhdf5-dev
+RUN apt-get install git -y
+
 RUN /setup.sources.sh
 RUN /setup.packages.sh /cpu.packages.txt
 
@@ -29,8 +33,6 @@ ARG TENSORFLOW_PACKAGE=tensorflow
 COPY setup.python.sh /setup.python.sh
 COPY cpu.requirements.txt /cpu.requirements.txt
 RUN /setup.python.sh $PYTHON_VERSION /cpu.requirements.txt
-
-RUN apt-get update && apt-get install -y libhdf5-dev
 
 RUN pip install --no-cache-dir ${TENSORFLOW_PACKAGE} 
 
@@ -42,7 +44,7 @@ FROM base as jupyter
 COPY jupyter.requirements.txt /jupyter.requirements.txt
 COPY setup.jupyter.sh /setup.jupyter.sh
 
-RUN apt-get install git -y
+
 RUN python3 -m pip install --no-cache-dir -r /jupyter.requirements.txt -U
 RUN python3 -m pip install git+https://github.com/tensorflow/docs
 RUN /setup.jupyter.sh

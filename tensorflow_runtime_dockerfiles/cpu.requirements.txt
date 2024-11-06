@@ -1,2 +1,4 @@
 # nothing!
 tensorflow_datasets
+tensorflow-datasets
+git+https://github.com/tensorflow/examples.git
